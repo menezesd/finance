@@ -17,3 +17,11 @@ payoff2.h
 payoff2.C
 
 Use a polymorphic class PayOff to determine the payoff
+
+payoff3.C
+payoff3.h
+
+Define a virtual copy constructor
+
+virtual.h
+Class declaration for vanilla option class 
