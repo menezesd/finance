@@ -4,7 +4,7 @@
 class PayOff
 {
 public:
-  enum OptionType { CALL, PUT };
+  enum OptionType { CALL, PUT, DIGITALCALL, DIGITALPUT };
  PayOff(double s, OptionType t) :
    strike(s), type (t)
     {}
