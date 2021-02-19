@@ -6,11 +6,12 @@
 class VanillaOption
 {
 public:
-	VanillaOption(const PayOff &p, double expiry);
-	VanillaOption(const VanillaOption &orig);
-	~VanillaOption();
-	double GetExpiry() const;
-	double OptionPayOff(double Spot) const;
+  VanillaOption(const PayOff &p, double expiry);
+  VanillaOption(const VanillaOption &orig);
+  VanillaOption& operator=(const VanillaOption& orig);
+  ~VanillaOption();
+  double GetExpiry() const;
+  double OptionPayOff(double Spot) const;
 
 private:
 	double expiry;

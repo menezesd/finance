@@ -3,11 +3,11 @@
 #include <random>
 using namespace std;
 
-#include "payoff2.h"
+#include "vanilla.h"
 
 
 /* Monte Carlo option pricer */
-double mc_price(const PayOff & pay_off,
+double mc_price(const VanillaOption & opt,
 		double expiry, double spot, double vol,
 		double r, size_t numpaths)
 {
@@ -24,7 +24,7 @@ double mc_price(const PayOff & pay_off,
     for (size_t i = 0; i < numpaths; i++) {
 	double deviate = dist(generator);
 	double this_spot = moved_spot * exp(deviate);
-	double this_payoff = pay_off(this_spot);
+	double this_payoff = opt.OptionPayOff(this_spot);
 	total += this_payoff;
     }
 
@@ -60,8 +60,11 @@ int main()
     cout << "Number of paths:";
     cin >> num_paths;
 
-    PayOffCall call(strike);
-    PayOffPut put(strike);
+    PayOffCall c(strike);
+    PayOffPut p(strike);
+
+    VanillaOption call(c, expiry);
+    VanillaOption put(p, expiry);
 
     double call_result = mc_price(call, expiry, spot, vol, r, num_paths);
     double put_result = mc_price(put, expiry, spot, vol, r, num_paths);
