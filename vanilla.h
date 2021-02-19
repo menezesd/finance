@@ -1,8 +1,7 @@
-
-#ifdef VANILLA_H
+#ifndef VANILLA_H
 #define VANILLA_H
 
-#include "payoff.h"
+#include "payoff3.h"
 
 class VanillaOption
 {
@@ -14,8 +13,8 @@ public:
 	double OptionPayOff(double Spot) const;
 
 private:
-	double Expiry;
+	double expiry;
 	PayOff *the_payoff;
-}
+};
 
 #endif

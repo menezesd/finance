@@ -7,6 +7,7 @@ class PayOff
   PayOff() {};
   virtual double operator() (double spot) const = 0;
   virtual  ~PayOff() {}
+  virtual PayOff* clone() const;
 private:
   
 };
