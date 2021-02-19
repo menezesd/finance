@@ -3,8 +3,9 @@
 #include <random>
 using namespace std;
 
-/* Monte Carlo putpricer */
-double put_price(double expiry, double strike, double spot, double vol,
+/* Monte Carlo pricer for double digital options */
+double dd_price(double expiry, double lower_strike,
+		 double upper_strike, double spot, double vol,
 		  double r, size_t numpaths)
 {
   default_random_engine generator;
@@ -21,8 +22,10 @@ double put_price(double expiry, double strike, double spot, double vol,
     {
       double deviate = dist(generator);
       double this_spot = moved_spot * exp(deviate);
-      double this_payoff = (this_spot - strike > 0) ?
-	0 : -this_spot + strike;
+      double this_payoff;
+      if (lower_strike <= this_spot && this_spot <= upper_strike) {
+	this_payoff = 1.00;
+      } else this_payoff = 0;
       total += this_payoff;
     }
 
@@ -34,7 +37,8 @@ double put_price(double expiry, double strike, double spot, double vol,
 int main ()
 {
   double expiry;
-  double strike;
+  double lstrike;
+  double ustrike;
   double spot;
   double vol;
   double r;
@@ -43,8 +47,11 @@ int main ()
   cout << "Enter expiry (years):";
   cin >> expiry;
 
-  cout << "Enter strike price:";
-  cin >> strike;
+  cout << "Enter lower strike price:";
+  cin >> lstrike;
+
+  cout << "Enter upper strike price:";
+  cin >> ustrike;
 
   cout << "Enter spot price:";
   cin >> spot;
@@ -58,7 +65,7 @@ int main ()
   cout << "Number of paths:";
   cin >> num_paths;
 
-  double result = put_price(expiry, strike, spot, vol, r, num_paths);
+  double result = dd_price(expiry, lstrike, ustrike, spot, vol, r, num_paths);
 
   cout << "the price is " << result << '\n';
 
