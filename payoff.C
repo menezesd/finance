@@ -13,4 +13,5 @@ case PUT:return max(strike - spot, 0.0);
 case DIGITALCALL:return spot >= strike;
 case DIGITALPUT:return spot <= strike;
 default:throw("unknown option type");
-}}
+}
+}

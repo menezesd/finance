@@ -19,8 +19,8 @@ int main()
 	    ++p[int (number)];
     }
 
-    std::cout << "normal_distribution, mu = 5.0, sigma = 2.0:" << std::
-	endl;
+    std::
+	cout << "normal_distribution, mu = 5.0, sigma = 2.0:" << std::endl;
 
     /* print out the histogram */
     for (int i = 0; i < 10; i++) {

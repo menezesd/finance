@@ -1,31 +1,26 @@
 #include "payoff_bridge.h"
 
-PayOffBridge::PayOffBridge(const PayOffBridge& orig)
+PayOffBridge::PayOffBridge(const PayOffBridge & orig)
 {
-  the_payoff = orig.the_payoff->clone();
+    the_payoff = orig.the_payoff->clone();
 }
 
-PayOffBridge::PayOffBridge(const PayOff& i)
+PayOffBridge::PayOffBridge(const PayOff & i)
 {
-  the_payoff = i.clone();
+    the_payoff = i.clone();
 }
 
 PayOffBridge::~PayOffBridge()
 {
-  delete the_payoff;
+    delete the_payoff;
 }
 
-PayOffBridge& PayOffBridge::operator=
-           (const PayOffBridge& original)
-{
+PayOffBridge & PayOffBridge::operator=(const PayOffBridge & original) {
 
-      if (this != &original)
-      {
+    if (this != &original) {
 
-            delete the_payoff;
-            the_payoff = original.the_payoff->clone();
-      }
-      return *this;
+	delete the_payoff;
+	the_payoff = original.the_payoff->clone();
+    }
+    return *this;
 }
-
-
