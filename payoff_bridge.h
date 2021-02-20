@@ -12,14 +12,14 @@ public:
    ~PayOffBridge ();
     PayOffBridge & operator= (const PayOffBridge & original);
 private:
-    PayOff * ThePayOffPtr;
+    PayOff * the_payoff;
 };
 
 inline double
 PayOffBridge::operator () (double Spot)
      const
      {
-       return ThePayOffPtr->operator  () (Spot);
+       return the_payoff->operator  () (Spot);
      }
 
 #endif
