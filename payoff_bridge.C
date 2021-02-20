@@ -2,12 +2,12 @@
 
 PayOffBridge::PayOffBridge(const PayOffBridge& orig)
 {
-  the_payoff = orig->clone();
+  the_payoff = orig.the_payoff->clone();
 }
 
 PayOffBridge::PayOffBridge(const PayOff& i)
 {
-  the_payoff = i->clone();
+  the_payoff = i.clone();
 }
 
 PayOffBridge::~PayOffBridge()
@@ -23,7 +23,7 @@ PayOffBridge& PayOffBridge::operator=
       {
 
             delete the_payoff;
-            the_payoff = original.the_payof->clone();
+            the_payoff = original.the_payoff->clone();
       }
       return *this;
 }

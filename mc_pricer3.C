@@ -3,7 +3,7 @@
 #include <random>
 using namespace std;
 
-#include "vanilla.h"
+#include "vanilla2.h"
 
 
 /* Monte Carlo option pricer */
@@ -24,7 +24,7 @@ double mc_price(const VanillaOption & opt,
     for (size_t i = 0; i < numpaths; i++) {
 	double deviate = dist(generator);
 	double this_spot = moved_spot * exp(deviate);
-	double this_payoff = opt.OptionPayOff(this_spot);
+	double this_payoff = opt.pay_off(this_spot);
 	total += this_payoff;
     }
 

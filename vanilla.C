@@ -7,13 +7,13 @@ VanillaOption::VanillaOption(const PayOff & ThePayOff_, double Expiry_)
 }
 
 
-double VanillaOption::GetExpiry() const
+double VanillaOption::get_expiry() const
 {
 
     return expiry;
 }
 
-double VanillaOption::OptionPayOff(double spot) const
+double VanillaOption::pay_off(double spot) const
 {
 
     return (*the_payoff) (spot);
