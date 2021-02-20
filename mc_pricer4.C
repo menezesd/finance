@@ -4,22 +4,22 @@
 using namespace std;
 
 #include "vanilla2.h"
-
+#include "parameters.h"
 
 /* Monte Carlo option pricer */
 double mc_price(const VanillaOption & opt,
-		double spot, double vol,
-		double r, size_t numpaths)
+		double spot, const Parameters &vol,
+		const Parameters &r,
+		size_t numpaths)
 {
- 
     default_random_engine generator;
 
     double expiry = opt.get_expiry();
-    double variance = vol * vol * expiry;
-    double sigma = vol * sqrt(expiry);
+    double variance = vol.integral_square(0,expiry);
+    double sigma = sqrt(variance);
     double ito_correction = -0.5 * variance;
     normal_distribution < double >dist(0, sigma);
-    double moved_spot = spot * exp(r * expiry + ito_correction);
+    double moved_spot = spot * exp(r.integral(0,expiry) + ito_correction);
     double this_spot;
     double total = 0;
 
@@ -31,7 +31,7 @@ double mc_price(const VanillaOption & opt,
     }
 
     double mu = total / numpaths;
-    return mu * exp(-r * expiry);
+    return mu * exp(-r.integral(0, expiry));
 
 }
 
@@ -68,9 +68,11 @@ int main()
     VanillaOption call(c, expiry);
     VanillaOption put(p, expiry);
 
+    ParametersConstant vp(vol);
+    ParametersConstant rp(r);
     
-    double call_result = mc_price(call, spot, vol, r, num_paths);
-    double put_result = mc_price(put, spot, vol, r, num_paths);
+    double call_result = mc_price(call, spot, vp, rp, num_paths);
+    double put_result = mc_price(put, spot, vp, rp, num_paths);
 
 
     cout << "the price is " << call_result << "for the call and "
